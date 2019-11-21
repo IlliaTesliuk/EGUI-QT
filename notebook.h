@@ -2,6 +2,8 @@
 #define NOTEBOOK_H
 
 #include <QComboBox>
+#include <QDateEdit>
+#include <QFile>
 #include <QLabel>
 #include <QMainWindow>
 #include <QPushButton>
@@ -20,8 +22,8 @@ private:
     QLabel *labelDateFrom;
     QLabel *labelDateTo;
     QLabel *labelCategory;
-    QDateTime *dateFrom;
-    QDateTime *dateTo;
+    QDateEdit *dateFrom;
+    QDateEdit *dateTo;
     QComboBox *comboCategory;
     QPushButton *buttonFilter;
     QPushButton *buttonClear;
@@ -29,6 +31,8 @@ private:
     QPushButton *buttonNewNote;
     QPushButton *buttonEditNote;
     QPushButton *buttonDeleteNote;
+
+    QFile *fileCategory;
 };
 
 #endif // NOTEBOOK_H
