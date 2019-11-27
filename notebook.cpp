@@ -2,27 +2,32 @@
 #include "noteedit.h"
 
 #include <QBoxLayout>
+#include <QDir>
+#include <QMessageBox>
 #include <QTextStream>
 
 NoteBook::NoteBook(QWidget *parent)
     : QMainWindow(parent)
 {
+    notes = new NoteDisplay();
+
     labelDateFrom = new QLabel("&From: ");
     dateFrom = new QDateEdit;
     dateFrom->setDisplayFormat("yyyy-MM-dd");
     dateFrom->setMaximumDate(QDate::currentDate());
+    dateFrom->setCalendarPopup(true);
     labelDateFrom->setBuddy(dateFrom);
 
     labelDateTo = new QLabel("&To: ");
     dateTo = new QDateEdit(QDate::currentDate());
     dateTo->setDisplayFormat("yyyy-MM-dd");
     dateTo->setMaximumDate(QDate::currentDate());
+    dateTo->setCalendarPopup(true);
     labelDateTo->setBuddy(dateTo);
 
-    fileCategory = new QFile("/home/users/jgaik/Z02/Content/Categories.txt");
+    fileCategory = new QFile("/home/jgaik/Projects/Z02/Content/Categories.txt");
     fileCategory->open(QIODevice::ReadWrite);
     QTextStream streamCategory(fileCategory);
-
     labelCategory = new QLabel("&Cateogry: ");
     comboCategory = new QComboBox();
     comboCategory->addItem("<All>");
@@ -36,11 +41,16 @@ NoteBook::NoteBook(QWidget *parent)
     buttonFilter = new QPushButton("Filter");
     buttonClear = new QPushButton("Clear");
 
-    treeNoteList = new QTreeView();
+    tableNoteList = new QTableView();
+    tableNoteList->setModel(notes);
 
     buttonNewNote = new QPushButton("Add Note");
     buttonEditNote = new QPushButton("Edit Note");
     buttonDeleteNote = new QPushButton("Delete Note");
+
+
+
+
 
     QHBoxLayout *layoutFilter = new QHBoxLayout;
     layoutFilter->addWidget(labelDateFrom);
@@ -59,7 +69,7 @@ NoteBook::NoteBook(QWidget *parent)
 
     QVBoxLayout *layoutMain = new QVBoxLayout;
     layoutMain->addLayout(layoutFilter);
-    layoutMain->addWidget(treeNoteList);
+    layoutMain->addWidget(tableNoteList);
     layoutMain->addLayout(layoutNoteActions);
 
     QWidget* widgetLayoutHolder = new QWidget();
@@ -73,7 +83,7 @@ NoteBook::~NoteBook()
     fileCategory->close();
 }
 
-void NoteBook::openNote()
+void NoteBook::openNote(QString noteTitle)
 {
     NoteEdit note;
     note.exec();

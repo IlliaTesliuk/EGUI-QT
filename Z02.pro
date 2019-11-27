@@ -26,10 +26,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         notebook.cpp \
+    notedisplay.cpp \
     noteedit.cpp
 
 HEADERS += \
         notebook.h \
+    notedisplay.h \
     noteedit.h
 
 FORMS += \

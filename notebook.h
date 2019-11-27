@@ -7,18 +7,20 @@
 #include <QLabel>
 #include <QMainWindow>
 #include <QPushButton>
-#include <QTreeView>
+#include <QTableView>
+#include "notedisplay.h"
 
 class NoteBook : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    NoteBook(QWidget *parent = 0);
+    NoteBook(QWidget *parent = nullptr);
     ~NoteBook();
 private slots:
-    void openNote();
+    void openNote(QString noteTitle);
 private:
+    NoteDisplay *notes;
     QLabel *labelDateFrom;
     QLabel *labelDateTo;
     QLabel *labelCategory;
@@ -27,7 +29,7 @@ private:
     QComboBox *comboCategory;
     QPushButton *buttonFilter;
     QPushButton *buttonClear;
-    QTreeView *treeNoteList;
+    QTableView *tableNoteList;
     QPushButton *buttonNewNote;
     QPushButton *buttonEditNote;
     QPushButton *buttonDeleteNote;
